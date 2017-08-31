@@ -1,0 +1,21 @@
+{
+  "name": "tripplanner-static-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "DATABASE_URL=postgres://localhost/tripplanner_db nodemon --ignore public server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "express": "^4.15.4",
+    "jquery": "^3.2.1",
+    "pg": "^7.1.0",
+    "sequelize": "^4.4.2",
+    "swig": "^1.4.2"
+  }
+}

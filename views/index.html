@@ -1,0 +1,29 @@
+{% extends './layout.html' %}
+{% block content %}
+<div class='row'>
+  <div class='col-sm-8'>
+    <div id='map'></div>
+  </div>
+  <div class='col-sm-4'>
+    {% include './_options.html' %}
+    {% include './_dayPicker.html' %}
+    {% include './_day.html' %}
+  </div>
+</div>
+<script>
+  {% autoescape %}
+  var options = {
+    hotels: {{ hotels | json }},
+    restaurants: {{ restaurants | json }},
+    activities: {{ activities | json }},
+  };
+  {% endautoescape %}
+</script>
+<script src='/vendor/jquery/dist/jquery.js'></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&sensor=true"></script>
+<script src='/public/js/Map.js'></script>
+<script src='/public/js/DayPicker.js'></script>
+<script src='/public/js/Day.js'></script>
+<script src='/public/js/Options.js'></script>
+<script src='/public/js/app.js'></script>
+{% endblock %}
