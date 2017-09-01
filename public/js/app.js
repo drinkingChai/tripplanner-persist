@@ -48,12 +48,19 @@ $(function(){
           if(days.length === 1){
             return;
           }
-          //TODO - remove the day on server
-          days = days.filter(function(day, _idx){
-            return _idx !== idx;
-          });
-          idx = 0;
-          renderDayPicker();
+
+          $.ajax({
+            url: `/days/${days[idx].id}`,
+            type: 'DELETE',
+            data: { things: 'stuff' },
+            success: function() {
+              days = days.filter(function(day, _idx){
+                return _idx !== idx;
+              });
+              idx = 0;
+              renderDayPicker();
+            }
+          })
         }
 
         var selectDay = function(_idx){
@@ -81,11 +88,17 @@ $(function(){
       //this function render day
       function renderDay(){
         var onRemoveItem = function(obj){
-          days[idx][obj.key] = days[idx][obj.key].filter(function(item){
-            return item.id !== obj.id;
-          });
-          //TODO - update on server
-          renderDayAndOptions();
+          $.ajax({
+            url: `days/${days[idx].id}/${obj.key}/${obj.id}`,
+            method: 'DELETE',
+            success: function() {
+              days[idx][obj.key] = days[idx][obj.key].filter(function(item){
+                return item.id !== obj.id;
+              });
+              //TODO - update on server
+              renderDayAndOptions();
+            }
+          })
         }
         Day({
           id: '#day',

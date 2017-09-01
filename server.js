@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const swig = require('swig');
+const bodyParser = require('body-parser');
 swig.setDefaults({ cache: false });
 const db = require('./db');
 const { Day, Hotel, Restaurant, Activity, Place } = db.models;
@@ -11,6 +12,8 @@ app.engine('html', swig.renderFile);
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/vendor', express.static(path.join(__dirname, 'node_modules')));
+
+app.use(bodyParser.urlencoded({ extended: false }));
 
 let config = process.env;
 try {
