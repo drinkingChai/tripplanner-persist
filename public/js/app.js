@@ -14,16 +14,19 @@ $(function(){
           day: days[idx],
           options: options,
           addItem: function(obj){
-            //only one hotel please.
             if(obj.key === 'hotels' && days[idx].hotels.length === 1){
               return;
             }
-            var item = options[obj.key].find(function(item){
-              return item.id === obj.id;
-            });
-            //TODO - ajax call to add on server
-            days[idx][obj.key].push(item);
-            renderDayAndOptions();
+
+            $.post(`/days/${days[idx].id}/${obj.key}/${obj.id}`)
+              .then(function(day) {
+                var item = options[obj.key].find(function(item){
+                  return item.id === obj.id;
+                });
+
+                days[idx][obj.key].push(item);
+                renderDayAndOptions();
+              })
           }
         });
       }
